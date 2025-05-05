@@ -30,7 +30,6 @@ static void ComHook(void)
 {
   __asm__ volatile(
       ".intel_syntax noprefix\n\t"
-      "pushfq\n\t"
       "movss xmm1, playerSecurityLevel[rip]\n\t" // Player skill
       "divss xmm1, dword ptr div_const[rip]\n\t" // 25.0
       "addss xmm1, dword ptr add_const[rip]\n\t" // 1.0
@@ -41,7 +40,6 @@ static void ComHook(void)
       "no_adjust:\n\t"
       "xorps xmm1, xmm1\n\t"
       "xorps xmm2, xmm2\n\t"
-      "popfq\n\t"
       "jmp oComFunc[rip]\n\t"
       "div_const: .long 0x41C80000\n\t" // 25.0 in IEEE 754
       "add_const: .long 0x3F800000\n\t" // 1.0 in IEEE 754
@@ -79,7 +77,7 @@ extern "C"
 {
   OBSEPluginVersionData OBSEPlugin_Version{
       OBSEPluginVersionData::kVersion,
-      10,
+      11,
       "Skill Based Auto Attempt Success",
       "rootBrz",
       OBSEPluginVersionData::kAddressIndependence_Signatures,
